@@ -20,7 +20,7 @@ except FileNotFoundError:
 
 headers = {
     'Accept': 'application/vnd.twitchtv.v5+json',
-    'Client-ID': 'dsv0rf69bvzgi9ch6ys16vwncjax1z',
+    'Client-ID': '*INSERT CLIENT ID HERE*',
     'Authorization': 'OAuth ' + oauth,
 }
 try:
