@@ -1,3 +1,5 @@
+#Initial Design by Vegard Valvik (https://github.com/begs) I have made modifications. Thank you.
+
 import sys, json, requests; 
 #Only necessary to set default encoding in Python 2.* - doesn't work on Python 3.*
 try:
@@ -10,6 +12,7 @@ except Exception:
 try:
     with open('oauth.txt', 'r') as f:
         oauth = f.read()
+	
 #Store OAuth in oauth.txt
 except FileNotFoundError:
     print("Paste your OAuth (like 'yaxb50....')")
@@ -20,7 +23,7 @@ except FileNotFoundError:
 
 headers = {
     'Accept': 'application/vnd.twitchtv.v5+json',
-    'Client-ID': '*INSERT CLIENT ID HERE*',
+    'Client-ID': '*INSERT CLIENT ID*',
     'Authorization': 'OAuth ' + oauth,
 }
 try:
@@ -28,7 +31,7 @@ try:
     data = response.json()
     numStreams = len(data['streams'])
 except (KeyError, ValueError):
-    print("Error - make sure your OAuth is formatted correctly in oauth.txt")
+    print("Error: Is OAuth formatted correctly in oauth.txt ?")
     sys.exit(1)
 
 print ("\nCHANNEL " + ' '*13 + "GAME" + ' '*37 + "VIEWERS" + ' '*8 + "\n" + '-'*80)
@@ -39,7 +42,7 @@ for i in range (0, numStreams):
     channelViewers = str(data["streams"][i]["viewers"]);
     streamType = data["streams"][i]["stream_type"];
 
-    #Check if stream is actually live or VodCast
+    #Check if stream is live or displaying a VOD
     if(streamType == "live"):
     	streamType = "";
     else:
